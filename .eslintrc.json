@@ -1,6 +1,7 @@
 {
     "env": {
         "browser": true,
+        "node": true,
         "es6": true
     },
     "extends": [
@@ -19,9 +20,10 @@
         "react"
     ],
     "rules": {
+		"no-console": "off",
         "strict": [2, "never"],
         "indent": 2,
-        "linebreak-style": [2, "windows"],
+        "linebreak-style": ["error", "windows"],
         "quotes": [
             "error",
             "single"
