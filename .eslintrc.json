@@ -1,44 +1,48 @@
 {
-    "env": {
-        "browser": true,
-        "node": true,
-        "es6": true
-    },
-    "extends": [
-        "eslint:recommended",
+	"env": {
+		"browser": true,
+		"node": true,
+		"es6": true,
+		"jest": true
+	},
+	"extends": [
+		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:jest/recommended"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-		"no-console": "off",
-        "strict": [2, "never"],
-        "indent": 2,
-        "linebreak-style": ["error", "windows"],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
-    },
-    "settings": {
-        "react": {
-            "createClass": "createReactClass",
-            "pragma": "React",
-            "version": "15.0"
-        },
-        "propWrapperFunctions": ["forbidExtraProps"]
-    }
+	],
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true,
+			"experimentalObjectRestSpread": true
+		},
+		"ecmaVersion": 6,
+		"sourceType": "module"
+	},
+	"plugins": [
+		"react",
+		"jest"
+	],
+	"settings": {
+		"react": {
+			"version": "15.0"
+		}
+	},
+	"rules": {
+		"no-param-reassign": "off",
+		"arrow-parens": ["error", "as-needed"],
+		"arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],
+		"comma-dangle": ["error", "only-multiline"],
+		"import/no-extraneous-dependencies": 0,
+		"import/prefer-default-export": 0,
+		"indent": ["error", 4, { "SwitchCase": 1 }],
+		"max-len": 0,
+		"no-console": 0,
+		"react/prop-types": 0,
+		"react/forbid-prop-types": 0,
+		"react/jsx-curly-brace-presence": "off",
+		"react/jsx-first-prop-new-line": [2, "multiline"],
+		"react/jsx-filename-extension": 0,
+		"react/require-default-props": 0,
+		"react/self-closing-comp": 0
+	}
 }
