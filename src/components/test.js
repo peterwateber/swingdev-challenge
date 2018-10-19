@@ -10,16 +10,27 @@ class Test extends Component {
     onClick() {
         this.props.dispatch({
             type: UPDATE_NAME,
-            payload: 'Peter'
+            payload: process.env.REACT_APP_FLICKR_API_KEY
         });
+        
     }
     render() {
+        const farmId=2, server='1949', photoId='44696912084', secret='c095103430';
+        const imageSrc = {
+            small: `https://farm${farmId}.staticflickr.com/${server}/${photoId}_${secret}_s.jpg`,
+            medium: `https://farm${farmId}.staticflickr.com/${server}/${photoId}_${secret}_m.jpg`
+        }
         return (
             <div>
                 <h1>
                     {this.props.test.aw}
-                    <button onClick={this.onClick}>Update</button>
                 </h1>
+                
+                <img src={imageSrc.small}/>
+                <img src={imageSrc.medium}/>
+                <div>
+                    <button onClick={this.onClick}>Update</button>
+                </div>
             </div>
         );
     }

@@ -27,6 +27,7 @@
 		"not op_mini all"
 	],
 	"devDependencies": {
+		"dotenv": "^6.1.0",
 		"eslint-plugin-jest": "^21.25.1",
 		"eslint-plugin-react": "^7.11.1"
 	}
