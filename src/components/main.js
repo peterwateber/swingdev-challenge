@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { store } from '../store';
+import React, {Component} from 'react';
+import {Provider} from 'react-redux';
+import {store} from '../store';
 import Test from './test';
 
 class Main extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Test />
+                <Test/>
             </Provider>
         );
     }

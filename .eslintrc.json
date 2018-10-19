@@ -28,6 +28,7 @@
 		}
 	},
 	"rules": {
+        "no-unused-expressions": "error",
 		"no-param-reassign": "off",
 		"arrow-parens": ["error", "as-needed"],
 		"arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],

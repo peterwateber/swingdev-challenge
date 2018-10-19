@@ -7,7 +7,7 @@ const sampleReducer = (state = {}, action) => {
         case UPDATE_NAME:
             return {
                 ...state,
-                aw: action.payload
+                aw: state.aw.concat(', ' + action.payload)
             };
         default:
             return state;
