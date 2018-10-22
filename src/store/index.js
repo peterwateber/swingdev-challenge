@@ -1,30 +1,26 @@
-import { createStore, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { cacheEnhancer } from 'redux-cache';
+
 import rootReducer from './reducers';
 
-import { FETCH_TODO_LIST } from './constants';
-
-const initialState = {};
-
-const middlewares = [];
-
-const enhancers = [...middlewares];
+const middlewares = [thunk];
 
 // If Redux DevTools Extension is installed use it, otherwise use Redux compose
 /* eslint-disable no-underscore-dangle */
 const composeEnhancers =
-    process.env.NODE_ENV !== 'production' &&
-    typeof window === 'object' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-        ? window.__REDUX_DEVTOOLS_EXTENSION__
+    typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
         : compose;
 /* eslint-enable */
 
-export const store = createStore(
+const store = createStore(
     rootReducer,
-    initialState,
-    composeEnhancers(...enhancers)
+    composeEnhancers(
+        applyMiddleware(...middlewares),
+        cacheEnhancer({
+            log: true
+        })
+    )
 );
-
-store.dispatch({
-    type: FETCH_TODO_LIST
-});
+export default store;

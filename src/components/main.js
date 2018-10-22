@@ -1,13 +1,22 @@
-import React, {Component} from 'react';
-import {Provider} from 'react-redux';
-import {store} from '../store';
-import Test from './test';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+
+import store from '../store';
+import Layout from './layout';
+import Contents from './contents';
 
 class Main extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
             <Provider store={store}>
-                <Test/>
+                <Layout>
+                    <div className="container">
+                        <Contents />
+                    </div>
+                </Layout>
             </Provider>
         );
     }

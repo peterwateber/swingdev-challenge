@@ -1,3 +1,3 @@
-import * as actions from './sampleAction';
+import * as actions from './flickrActions';
 
 export default actions;

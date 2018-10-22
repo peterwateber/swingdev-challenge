@@ -1,0 +1,18 @@
+body {
+	background: #f1f1f1;
+	font-family: 'Didact Gothic', sans-serif;
+}
+
+.blog-header {
+	line-height: 1;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.blog-header-logo {
+	font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+	font-size: 2.25rem;
+}
+
+.blog-header-logo:hover {
+	text-decoration: none;
+}

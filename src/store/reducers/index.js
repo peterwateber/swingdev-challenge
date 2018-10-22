@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import sampleReducer from './sampleReducer';
+
+import flickrReducer from './flickrReducer';
 
 export default combineReducers({
-    test: sampleReducer
+    photos: flickrReducer
 });
