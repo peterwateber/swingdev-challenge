@@ -1,96 +1,92 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import StackGrid from 'react-stack-grid';
+import InfiniteScroll from 'react-infinite-scroller';
 import Card from './card';
-import Loader from './loader';
-import { fetchFlickrPhotos } from '../store/actions/flickrActions';
-import { FETCH_FLICKR_LOADED } from '../store/constants';
+import Common from './class.common';
+import { fetchRequested } from '../store/actions';
 
-class Contents extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: true,
-            error: '',
-            showCards: 'd-none',
-            indexesOfImagesLoaded: []
-        };
-        this.props.dispatch(fetchFlickrPhotos());
-        this.checkTotalLoadedImages = this.checkTotalLoadedImages.bind(this);
-    }
+import './css/content.css';
+
+class Contents extends Common {
     componentDidMount() {
-        this.showCards();
+        try {
+            this.props.dispatch(
+                fetchRequested({
+                    onLoad: true,
+                    page: this.currentPage,
+                    userId: '',
+                    sort: 'date-taken-desc'
+                })
+            );
+        } catch (ex) {}
+        this.handleResize();
+        window.addEventListener('resize', this.handleResize);
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.error) {
-            this.setState({
-                loading: nextProps.loading,
-                error: nextProps.error
-            });
+
+    UNSAFE_componentWillMount() {
+        this.handleResize();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+    }
+
+    cardsDisplay(photos) {
+        try {
+            return photos.map((card, index) => (
+                <Card key={index} info={card} />
+            ));
+        } catch (ex) {
+            return [];
         }
     }
 
-    /**
-     *
-     * @param integer imageLoadedIndex
-     * Where:
-     *      this.props.photos.photos.photo = [] //array of photos
-     *      imageLoadedIndex = index of the image loaded
-     * Then:
-     */
-    checkTotalLoadedImages(imageLoadedIndex) {
-        this.state.indexesOfImagesLoaded.push(imageLoadedIndex);
-        this.setState({
-            indexesOfImagesLoaded: this.state.indexesOfImagesLoaded
-        });
-    }
-    shouldComponentUpdate(nextProps, nextState) {
-        const error = nextState.error || '';
-        return this.props.photos.length !== nextProps.photos.length || error.length > 0;
-    }
-    cardsDisplay(photos) {
-        const arrayOfPhotos = photos || [];
-        const arrayOfCards = arrayOfPhotos.map((card, index) => (
-            <Card
-                checkTotalLoadedImages={this.checkTotalLoadedImages}
-                photoIndex={index + 1}
-                key={index}
-                info={card}
-            />
-        ));
-        return arrayOfCards;
-    }
-    showCards() {
-        const expectedTotalPhotos = this.props.photos['photos']
-            ? this.props.photos['photos'].photo.length
-            : 0;
-        if (this.state.indexesOfImagesLoaded.length === expectedTotalPhotos) {
-            this.props.dispatch({
-                type: FETCH_FLICKR_LOADED
-            });
-            this.setState({
-                showCards: 'd-block',
-                loading: false
-            });
-        }
-    }
     render() {
-        const photos = this.props.photos['photos']
-            ? this.props.photos['photos'].photo
-            : false;
-        const cardsDisplay = this.cardsDisplay(photos);
+        /**
+         * DO CALCULATION IN render INSTEAD OF componentDidMount().
+         * since setState() calls componentDidMount() and re-render
+         */
+        let cards = [];
+        let photo = [];
+        let totalPage = 0;
+        try {
+            photo = this.props.photos.photos.photo;
+            cards = this.cardsDisplay(photo);
+            totalPage = this.props.photos.photos.pages;
+        } catch (ex) {}
+
         return (
-            <div className="row">
-                {this.state.loading && <Loader />}
-                {this.state.error && (
+            <div className="container ifinite-scroller">
+                {this.props.loading && (
+                    <div className="loading">Loading some more...</div>
+                )}
+                {this.props.error && (
                     <div className="alert alert-warning">
-                        {this.state.error}
+                        {this.props.error}
                     </div>
                 )}
-                <div className={this.state.showCards.concat(' card-flex')}>
-                    {cardsDisplay}
-                </div>
+                {!this.props.error && !this.props.loading && !photo.length && (
+                    <div className="alert alert-success">
+                        No results found for <strong>{this.props.search}</strong>
+                    </div>
+                )}
+                <InfiniteScroll
+                    initialLoad={false}
+                    loadMore={this.loadMore}
+                    hasMore={totalPage !== this.currentPage}>
+                    <StackGrid
+                        monitorImagesLoaded={true}
+                        duration={0}
+                        columnWidth={this.state.columnWidth}
+                        gridRef={grid => {
+                            window.grid = grid;
+                        }}>
+                        {cards}
+                    </StackGrid>
+                </InfiniteScroll>
             </div>
         );
     }
@@ -101,8 +97,9 @@ Contents.propTypes = {
 };
 
 const mapStateToProps = state => {
-    const { photos, error, loading } = state.photos;
+    const { search, photos, error, loading } = state.store;
     return {
+        search,
         photos,
         error,
         loading

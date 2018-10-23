@@ -5,7 +5,10 @@
             "brace_style": "collapse,preserve-inline"
         }
     },
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4,
     "prettier.tabWidth": 4,
+    "prettier.useTabs": false,
     "prettier.semi": true,
     "prettier.singleQuote": true,
     "prettier.jsxBracketSameLine": true,

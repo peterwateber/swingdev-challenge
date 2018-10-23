@@ -10,7 +10,7 @@
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:jest/recommended",
-        "plugin:jsx-a11y/recommended"    
+		"plugin:jsx-a11y/recommended"
 	],
 	"parserOptions": {
 		"ecmaFeatures": {
@@ -20,11 +20,7 @@
 		"ecmaVersion": 6,
 		"sourceType": "module"
 	},
-	"plugins": [
-		"jsx-a11y",
-		"react",
-		"jest"
-	],
+	"plugins": ["jsx-a11y", "react", "jest"],
 	"settings": {
 		"react": {
 			"version": "15.0"
@@ -34,7 +30,11 @@
 		"no-unused-expressions": "error",
 		"no-param-reassign": "off",
 		"arrow-parens": ["error", "as-needed"],
-		"arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": false }],
+		"arrow-body-style": [
+			"error",
+			"as-needed",
+			{ "requireReturnForObjectLiteral": false }
+		],
 		"comma-dangle": ["error", "only-multiline"],
 		"import/no-extraneous-dependencies": 0,
 		"import/prefer-default-export": 0,
@@ -43,7 +43,21 @@
 		"no-console": 0,
 		"jsx-a11y/img-redundant-alt": 0,
 		"jsx-a11y/anchor-is-valid": 0,
-        "jsx-a11y/href-no-hash": 0,
+		"jsx-a11y/href-no-hash": 0,
+		"jsx-a11y/alt-text": 0,
+		"jsx-a11y/no-noninteractive-element-interactions": [
+			0,
+			{
+				"handlers": [
+					"onClick",
+					"onMouseDown",
+					"onMouseUp",
+					"onKeyPress",
+					"onKeyDown",
+					"onKeyUp"
+				]
+			}
+		],
 		"react/prop-types": 0,
 		"react/forbid-prop-types": 0,
 		"react/jsx-curly-brace-presence": "off",

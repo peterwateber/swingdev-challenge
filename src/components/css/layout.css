@@ -1,0 +1,22 @@
+.header a,
+.header .btn-link {
+	text-decoration: none;
+}
+
+.form-control {
+	width: auto;
+	min-width: 190px;
+}
+
+.filter-area .btn-link {
+	margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+	.filter-area .btn-link {
+		margin-top: 0;
+    }
+    .form-inline .form-control {
+        width: 300px;
+    }
+}

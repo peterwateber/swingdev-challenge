@@ -1,0 +1,9 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+
+.blog-header {
+    margin-bottom: 15px;
+}
